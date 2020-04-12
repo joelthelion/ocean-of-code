@@ -7,11 +7,12 @@ public class Main {
         Options opts = new Options().read(args);
         String cli1 = opts.getCommandLine1();
         String cli2 = opts.getCommandLine2();
+        String cli3 = opts.getCommandLine3();
 
         MultiplayerGameRunner gameRunner = new MultiplayerGameRunner();
         // Set league, remove before push.
         gameRunner.setLeagueLevel(3);
-        gameRunner.setSeed(1337L);
+        gameRunner.setSeed(Long.parseLong(cli3));
         // add player 1
         if (null != cli1) {
             gameRunner.addAgent(cli1);
@@ -40,6 +41,7 @@ public class Main {
 class Options {
     private String commandLine1 = null;
     private String commandLine2 = null;
+    private String commandLine3 = null;
 
     public Options read(String[] args) {
         if (args == null) {
@@ -56,6 +58,12 @@ class Options {
                 this.commandLine2 = args[1];
                 break;
             }
+            case 3: {
+                this.commandLine1 = args[0];
+                this.commandLine2 = args[1];
+                this.commandLine3 = args[2];
+                break;
+            }
         }
 
         return this;
@@ -67,5 +75,9 @@ class Options {
 
     public String getCommandLine2() {
         return this.commandLine2;
+    }
+
+    public String getCommandLine3() {
+        return this.commandLine3;
     }
 }
