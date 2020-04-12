@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
         // read cli args
         Options opts = new Options().read(args);
-        String cli1 = opts.getCommandLine1();
-        String cli2 = opts.getCommandLine2();
-        String cli3 = opts.getCommandLine3();
+        String cli1 = opts.commandLine1;
+        String cli2 = opts.commandLine2;
+        String cli3 = opts.commandLine3;
 
         MultiplayerGameRunner gameRunner = new MultiplayerGameRunner();
         // Set league, remove before push.
@@ -34,50 +34,25 @@ public class Main {
 
         // gameRunner.addCommandLinePlayer("python src/main/resources/ai/ai.py");
 
-        gameRunner.start();
+        if (opts.commandLine4.equals("simulate")) {
+          gameRunner.simulate();
+        } else {
+          gameRunner.start();
+        }
     }
 }
 
 class Options {
-    private String commandLine1 = null;
-    private String commandLine2 = null;
-    private String commandLine3 = null;
+    public String commandLine1 = null;
+    public String commandLine2 = null;
+    public String commandLine3 = null;
+    public String commandLine4 = null;
 
     public Options read(String[] args) {
-        if (args == null) {
-            return this;
-        }
-
-        switch (args.length) {
-            case 1: {
-                this.commandLine1 = args[0];
-                break;
-            }
-            case 2: {
-                this.commandLine1 = args[0];
-                this.commandLine2 = args[1];
-                break;
-            }
-            case 3: {
-                this.commandLine1 = args[0];
-                this.commandLine2 = args[1];
-                this.commandLine3 = args[2];
-                break;
-            }
-        }
-
-        return this;
-    }
-
-    public String getCommandLine1() {
-        return this.commandLine1;
-    }
-
-    public String getCommandLine2() {
-        return this.commandLine2;
-    }
-
-    public String getCommandLine3() {
-        return this.commandLine3;
+      this.commandLine1 = args[0];
+      this.commandLine2 = args[1];
+      this.commandLine3 = args[2];
+      this.commandLine4 = args[3];
+      return this;
     }
 }
